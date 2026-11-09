@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Fraunces', Georgia, serif;
+
+    /* Natal de verdade: floresta à noite, vermelho vivo, ouro e creme */
+    --color-night: #0e3b26;
+    --color-night-dark: #082a1a;
+    --color-snow: #fffdf7;
+    --color-paper: #f4ead2;
+    --color-ink: #1d2b24;
+    --color-muted: #6b7a72;
+    --color-line: #e6dcc3;
+    --color-holly: #1d5c3f;
+    --color-holly-dark: #14432d;
+    --color-berry: #c8283a;
+    --color-berry-dark: #9d1d2c;
+    --color-gold: #f0b93a;
+    --color-gold-dark: #c8932a;
+}
+
+@layer base {
+    body {
+        @apply font-sans text-ink antialiased;
+        background-color: var(--color-paper);
+        /* Neve sutil: flocos azul-acinzentados sobre o creme */
+        background-image:
+            radial-gradient(circle, rgb(120 150 175 / 0.28) 1.5px, transparent 2px),
+            radial-gradient(circle, rgb(120 150 175 / 0.18) 1px, transparent 1.5px);
+        background-size: 90px 90px, 55px 55px;
+        background-position: 0 0, 30px 40px;
+    }
+
+    h1, h2, h3 {
+        @apply font-display font-semibold tracking-tight;
+    }
+}
+
+@layer components {
+    /* Cartão branco-creme sobre o papel, com borda dourada */
+    .card {
+        @apply rounded-2xl border-2 border-gold bg-snow p-6 text-ink;
+        box-shadow: 0 6px 0 0 rgb(185 140 40 / 0.35);
+    }
+    .card h1, .card h2, .card h3 {
+        @apply text-holly;
+    }
+
+    .btn {
+        @apply inline-block cursor-pointer rounded-full bg-berry px-5 py-2 text-sm font-bold text-snow transition-colors;
+        box-shadow: 0 3px 0 0 var(--color-berry-dark);
+    }
+    .btn:hover {
+        @apply bg-berry-dark;
+    }
+    .btn:active {
+        transform: translateY(2px);
+        box-shadow: 0 1px 0 0 var(--color-berry-dark);
+    }
+    .btn-alt {
+        @apply bg-gold text-night-dark;
+        box-shadow: 0 3px 0 0 var(--color-gold-dark);
+    }
+    .btn-alt:hover {
+        @apply bg-gold-dark;
+    }
+    .btn-alt:active {
+        box-shadow: 0 1px 0 0 var(--color-gold-dark);
+    }
+
+    .input {
+        @apply w-full rounded-lg border-2 border-line bg-white px-3 py-2 text-ink outline-none transition;
+    }
+    .input:focus {
+        @apply border-holly ring-2 ring-holly/20;
+    }
+
+    /* Fita de presente / luzes de Natal */
+    .lights {
+        height: 10px;
+        background: repeating-linear-gradient(
+            90deg,
+            var(--color-berry) 0 40px,
+            var(--color-gold) 40px 80px,
+            var(--color-holly) 80px 120px,
+            var(--color-snow) 120px 160px
+        );
+    }
+}
