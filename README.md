@@ -1,59 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">🎄 ERP do Polo Norte</h1>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  Sistema de gestão da oficina do Papai Noel, das cartas das crianças até o brinquedo pronto.<br>
+  Projeto de estudo e portfólio feito com <strong>Laravel</strong>.
 </p>
 
-## About Laravel
+<p align="center">
+  <img src="https://img.shields.io/badge/Laravel-12-c8283a?logo=laravel&logoColor=white" alt="Laravel 12">
+  <img src="https://img.shields.io/badge/PHP-8.2+-1d5c3f?logo=php&logoColor=white" alt="PHP 8.2+">
+  <img src="https://img.shields.io/badge/Tailwind-4-f0b93a?logo=tailwindcss&logoColor=white" alt="Tailwind 4">
+  <img src="https://img.shields.io/badge/status-em%20desenvolvimento-c8283a" alt="Em desenvolvimento">
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Sobre
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Todo ano chegam milhares de cartas ao Polo Norte. O **ERP do Polo Norte** organiza esse trabalho:
+as cartas são cadastradas, cada criança recebe uma avaliação de comportamento no ano, e as cartas
+das crianças bem-comportadas viram **ordens de produção** que os duendes fabricam.
 
-## Learning Laravel
+A ideia do projeto é praticar Laravel "do zero". Por isso a autenticação é **feita à mão, sem starter kit**:
+sessão, `Auth`, hash de senha e middleware de perfil.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Perfis de usuário
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Perfil | Quem é | O que pode fazer |
+|---|---|---|
+| `noel` | Papai Noel | Admin master: vê e gerencia tudo |
+| `mamae_noel` | Mamãe Noel | Gestão: avaliações de comportamento e, futuramente, estoque |
+| `duende` | Duendes | Vê e atualiza apenas as próprias ordens de produção |
 
-## Laravel Sponsors
+> As crianças **não** são usuários do sistema, apenas cadastros.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Fluxo principal
 
-### Premium Partners
+```
+Carta chega (recebida)
+   └─▶ em análise
+         └─▶ criança é avaliada no ano
+               ├─▶ bem-comportada → carta aprovada → ordem de produção (na fila)
+               │                                       └─▶ duende pega (fabricando) → pronta ✅
+               └─▶ não → carta recusada
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Modelo de dados
 
-## Contributing
+| Tabela | Campos principais |
+|---|---|
+| `users` | name, email (único), password, role (`noel` \| `mamae_noel` \| `duende`) |
+| `criancas` | nome, data_nascimento, cidade |
+| `cartas` | crianca_id, brinquedo, ano, status (`recebida` \| `em_analise` \| `aprovada` \| `recusada`) |
+| `comportamentos` | crianca_id, ano, bonzinho, avaliado_por → users, observacao. Único por criança + ano |
+| `ordens_producao` | carta_id (único), duende_id → users, status (`na_fila` \| `fabricando` \| `pronta`), concluida_em |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Regras de negócio:** uma carta = um brinquedo; uma ordem de produção por carta; uma avaliação de
+comportamento por criança por ano.
 
-## Code of Conduct
+## Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Backend:** Laravel 12 (PHP 8.2+), sem starter kit
+- **Banco:** SQLite
+- **Frontend:** Blade + componentes Blade, Vite e Tailwind CSS 4
+- **Testes:** Pest
 
-## Security Vulnerabilities
+## Visual
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Tema de cartão de Natal moderno: fundo creme, vermelho-cereja, verde-azevinho e dourado, com
+tipografia Fraunces (títulos) e Inter (texto). Os personagens (Papai Noel, Mamãe Noel e duendes)
+aparecem como avatares de cada perfil e em ilustrações pelas telas: boas-vindas, estados vazios
+e mensagens de sucesso ou erro.
 
-## License
+Componentes Blade reutilizáveis em `resources/views/components/`:
+`<x-layout>`, `<x-hero>`, `<x-personagem>`, `<x-avatar>`, `<x-alerta>`, `<x-estado-vazio>`, `<x-badge>`, `<x-field>`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+> As ilustrações foram geradas com IA e recortadas para uso no projeto.
+
+## Roadmap
+
+**v1: núcleo**
+- [x] Identidade visual, layout e componentes Blade
+- [x] Telas: login, dashboard, crianças, cartas, ordens do duende
+- [ ] Migrations e models
+- [ ] Seeders
+- [ ] Login manual com perfis e middleware
+- [ ] CRUD de crianças e cartas
+- [ ] Avaliação de comportamento
+- [ ] Ordens de produção e tela do duende
+- [ ] Testes com Pest
+
+**v2: estoque e dashboard.** Brinquedos, matéria-prima e indicadores.
+
+**v3: logística.** Entregas por região, renas e rota do trenó.
+
+## Como rodar
+
+Pré-requisitos: PHP 8.2+, Composer e Node.js.
+
+```bash
+git clone https://github.com/devcauanbernardino/erp-natal.git
+cd erp-natal
+
+composer install
+npm install
+
+cp .env.example .env
+php artisan key:generate
+
+# cria o banco SQLite e roda as migrations
+touch database/database.sqlite
+php artisan migrate
+```
+
+Em dois terminais:
+
+```bash
+php artisan serve   # aplicação em http://localhost:8000
+npm run dev         # Vite (CSS/JS com recarga automática)
+```
+
+Para rodar os testes:
+
+```bash
+php artisan test
+```
+
+## Autor
+
+Feito por **Cauan Bernardino** · [@devcauanbernardino](https://github.com/devcauanbernardino)
