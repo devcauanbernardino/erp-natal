@@ -29,12 +29,10 @@
     body {
         @apply font-sans text-ink antialiased;
         background-color: var(--color-paper);
-        /* Neve sutil: flocos azul-acinzentados sobre o creme */
-        background-image:
-            radial-gradient(circle, rgb(120 150 175 / 0.28) 1.5px, transparent 2px),
-            radial-gradient(circle, rgb(120 150 175 / 0.18) 1px, transparent 1.5px);
-        background-size: 90px 90px, 55px 55px;
-        background-position: 0 0, 30px 40px;
+        /* Imagem de fundo definida no layout (prop "fundo") */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
     }
 
     h1, h2, h3 {
@@ -79,17 +77,5 @@
     }
     .input:focus {
         @apply border-holly ring-2 ring-holly/20;
-    }
-
-    /* Fita de presente / luzes de Natal */
-    .lights {
-        height: 10px;
-        background: repeating-linear-gradient(
-            90deg,
-            var(--color-berry) 0 40px,
-            var(--color-gold) 40px 80px,
-            var(--color-holly) 80px 120px,
-            var(--color-snow) 120px 160px
-        );
     }
 }

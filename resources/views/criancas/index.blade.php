@@ -1,8 +1,7 @@
 <x-layout title="Crianças">
-    <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-berry text-3xl">Crianças</h1>
+    <x-hero imagem="oficina.png" titulo="Crianças" subtitulo="Quem está na lista do Papai Noel" foco="center 60%">
         <a href="#" class="btn btn-alt">+ Nova criança</a>
-    </div>
+    </x-hero>
 
     <div class="card overflow-x-auto">
         <table class="w-full text-left">

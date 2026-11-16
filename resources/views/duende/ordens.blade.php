@@ -1,5 +1,9 @@
 <x-layout title="Minhas ordens">
-    <h1 class="text-berry mb-6 text-3xl">Minhas ordens</h1>
+    <x-slot:usuario>
+        <x-usuario-menu personagem="duende" nome="Pimpão" perfil="Duende" />
+    </x-slot:usuario>
+
+    <x-hero imagem="duendes.png" titulo="Minhas ordens" subtitulo="Mãos à obra, duende!" foco="center 40%" />
 
     <div class="grid gap-6 md:grid-cols-2">
         {{-- TODO (você): @foreach ($ordens as $ordem) e botões com form/rota reais --}}

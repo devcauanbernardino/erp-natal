@@ -11,3 +11,5 @@ Route::view('/preview/login', 'login');
 Route::view('/preview/criancas', 'criancas.index');
 Route::view('/preview/criancas/form', 'criancas.form');
 Route::view('/preview/duende', 'duende.ordens');
+Route::view('/preview/cartas', 'cartas.index');
+Route::view('/preview/dashboard', 'dashboard');
