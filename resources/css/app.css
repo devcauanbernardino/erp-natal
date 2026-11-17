@@ -78,4 +78,25 @@
     .input:focus {
         @apply border-holly ring-2 ring-holly/20;
     }
+    .input::placeholder {
+        @apply text-muted/70;
+    }
+    /* Campo com erro: borda e fundo avermelhados, e um leve "tremido" ao aparecer */
+    .input-erro {
+        @apply border-berry bg-berry/5;
+        animation: tremer 0.35s ease-in-out;
+    }
+    .input-erro:focus {
+        @apply border-berry ring-berry/20;
+    }
+
+    @keyframes tremer {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-4px); }
+        40%, 80% { transform: translateX(4px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .input-erro { animation: none; }
+    }
 }

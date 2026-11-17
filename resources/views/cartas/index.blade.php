@@ -1,8 +1,4 @@
 <x-layout title="Cartas">
-    <x-slot:usuario>
-        <x-usuario-menu personagem="mamae-noel" nome="Dona Noel" perfil="Mamãe Noel" />
-    </x-slot:usuario>
-
     <x-hero imagem="cartas.png" titulo="Cartas" subtitulo="Os pedidos que chegaram ao Polo Norte" foco="center 55%">
         <a href="#" class="btn btn-alt">+ Nova carta</a>
     </x-hero>
@@ -19,29 +15,15 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- TODO (você): trocar estes exemplos por @forelse ($cartas as $carta) --}}
-                {{-- Sugestão de cor por status: recebida = gold, em_analise = gold, aprovada = green, recusada = red --}}
-                <tr class="border-b border-line">
-                    <td class="p-3">Exemplo da Silva</td>
-                    <td class="p-3">Carrinho de madeira</td>
-                    <td class="p-3">2026</td>
-                    <td class="p-3"><x-badge cor="green">Aprovada</x-badge></td>
-                    <td class="p-3 text-right"><a href="#" class="font-medium text-holly hover:underline">ver</a></td>
-                </tr>
-                <tr class="border-b border-line">
-                    <td class="p-3">Maria Souza</td>
-                    <td class="p-3">Boneca de pano</td>
-                    <td class="p-3">2026</td>
-                    <td class="p-3"><x-badge cor="gold">Em análise</x-badge></td>
-                    <td class="p-3 text-right"><a href="#" class="font-medium text-holly hover:underline">ver</a></td>
-                </tr>
-                <tr class="border-b border-line">
-                    <td class="p-3">João Pereira</td>
-                    <td class="p-3">Videogame</td>
-                    <td class="p-3">2026</td>
-                    <td class="p-3"><x-badge cor="red">Recusada</x-badge></td>
-                    <td class="p-3 text-right"><a href="#" class="font-medium text-holly hover:underline">ver</a></td>
-                </tr>
+                {{-- TODO (você): @forelse ($cartas as $carta) ... @empty ... @endforelse
+                     Modelo de linha:
+                     <tr class="border-b border-line">
+                         <td class="p-3">criança</td> <td class="p-3">brinquedo</td> <td class="p-3">ano</td>
+                         <td class="p-3"><x-badge cor="...">status</x-badge></td>
+                         <td class="p-3 text-right"><a href="..." class="font-medium text-holly hover:underline">ver</a></td>
+                     </tr>
+                     Cor sugerida por status: recebida/em_analise = gold, aprovada = green, recusada = red
+                     Para a lista vazia: <x-estado-vazio personagem="noel" pose="lendo-carta" titulo="Nenhuma carta ainda"> --}}
             </tbody>
         </table>
     </div>

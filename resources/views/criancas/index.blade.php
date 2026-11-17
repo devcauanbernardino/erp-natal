@@ -14,15 +14,13 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- TODO (você): trocar este exemplo por @forelse ($criancas as $crianca) --}}
-                <tr class="border-b border-line">
-                    <td class="p-3">Exemplo da Silva</td>
-                    <td class="p-3">12/03/2016</td>
-                    <td class="p-3">Rovaniemi</td>
-                    <td class="p-3 text-right">
-                        <a href="#" class="font-medium text-holly hover:underline">editar</a>
-                    </td>
-                </tr>
+                {{-- TODO (você): @forelse ($criancas as $crianca) ... @empty ... @endforelse
+                     Modelo de linha:
+                     <tr class="border-b border-line">
+                         <td class="p-3">nome</td> <td class="p-3">nascimento</td> <td class="p-3">cidade</td>
+                         <td class="p-3 text-right"><a href="..." class="font-medium text-holly hover:underline">editar</a></td>
+                     </tr>
+                     Para a lista vazia, veja <x-estado-vazio> --}}
             </tbody>
         </table>
     </div>

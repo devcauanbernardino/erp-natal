@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Carta extends Model
+{
+    use HasFactory;
+
+    public function crianca()
+    {
+        return $this->belongsTo(Crianca::class);
+    }
+
+    public function ordemProducao()
+    {
+        return $this->hasOne(OrdemProducao::class);
+    }
+}
